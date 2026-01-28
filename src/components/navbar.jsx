@@ -10,12 +10,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, User, Settings, LogOut } from "lucide-react";
+import { Menu, User, LogOut } from "lucide-react";
 import Sidebar from "./sidebar";
 import { Avatar } from "@/components/ui/avatar";
-
+import { useRouter } from "next/navigation";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Navbar({ collapsed, setCollapsed }) {
+  const router = useRouter();
+  const handleLogout = () => {
+    console.log("User logged out");
+    router.push("/sign-in");
+  };
   return (
     <header className="flex h-14 items-center border-b px-4">
       {/* Mobile menu */}
@@ -55,7 +61,9 @@ export default function Navbar({ collapsed, setCollapsed }) {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel className="font-semibold">User 1</DropdownMenuLabel>
+            <DropdownMenuLabel className="font-semibold">
+              User 1
+            </DropdownMenuLabel>
             <DropdownMenuSeparator />
 
             <DropdownMenuItem>
@@ -65,12 +73,15 @@ export default function Navbar({ collapsed, setCollapsed }) {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div className="ml-autoflex items-center gap-2">
+        <ThemeToggle />
       </div>
     </header>
   );
